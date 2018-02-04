@@ -21,7 +21,7 @@ end
 if nargin > 0
     
     %Cumulative Reward Amount
-    set(GUIHandles.Axes.TrialRate.CumRwd, 'position', [1 numel(Data.Custom.Rewarded)], 'string', ...
+    set(GUIHandles.Axes.TrialRate.CumRwd, 'position', [0 1], 'string', ...
         [num2str(sum(Data.Custom.Rewarded)*TaskParameters.GUI.rewardAmount/1000) ' mL']);
     
     %% Trial rate
