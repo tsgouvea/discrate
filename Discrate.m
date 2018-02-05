@@ -55,16 +55,8 @@ BpodSystem.Data.Custom.LeftA = [];
 
 %% Main loop
 RunSession = true;
-% iTrial = 1;
 
-TaskParameters.GUI.LeftA = rand>.5;
-tsSessStart = tic;
-
-while toc(tsSessStart) < TaskParameters.GUI.MaxSessLen*60
-    if TaskParameters.GUI.Reverse && toc(tsSessStart) > TaskParameters.GUI.MaxSessLen/2
-        TaskParameters.GUI.LeftA = ~TaskParameters.GUI.LeftA;
-        TaskParameters.GUI.Reverse = false;        
-    end
+while RunSession
     TaskParameters = BpodParameterGUI('sync', TaskParameters);
     
     sma = stateMatrix();
@@ -80,6 +72,13 @@ while toc(tsSessStart) < TaskParameters.GUI.MaxSessLen*60
     end
     
     updateCustomDataFields()
+    
     BpodSystem.GUIHandles = SessionSummary(BpodSystem.Data, BpodSystem.GUIHandles);
+    if BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen
+        RunSession = false;
+    elseif TaskParameters.GUI.Reverse && BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen/2
+        TaskParameters.GUI.LeftA = ~TaskParameters.GUI.LeftA;
+        TaskParameters.GUI.Reverse = false;
+    end
 end
 end
