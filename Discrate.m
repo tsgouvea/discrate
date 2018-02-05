@@ -59,7 +59,7 @@ RunSession = true;
 TaskParameters.GUI.LeftA = rand>.5;
 tsSessStart = tic;
 
-while toc(tsSessStart) < TaskParameters.GUI.MaxSessLen
+while toc(tsSessStart) < TaskParameters.GUI.MaxSessLen*60
     if TaskParameters.GUI.Reverse && toc(tsSessStart) > TaskParameters.GUI.MaxSessLen/2
         TaskParameters.GUI.LeftA = ~TaskParameters.GUI.LeftA;
         TaskParameters.GUI.Reverse = false;        
