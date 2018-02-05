@@ -25,10 +25,10 @@ if nargin > 0
         [num2str(sum(Data.Custom.Rewarded)*TaskParameters.GUI.rewardAmount/1000) ' mL - AY/BG']);
     
     %% Trial rate
-    ndxCho = (Data.Custom.ChoiceLeft(:)==1 & Data.Custom.LeftA) | (Data.Custom.ChoiceLeft(:)==0 & ~Data.Custom.LeftA);
+    ndxCho = (Data.Custom.ChoiceLeft(:)==1 & Data.Custom.LeftA(:)) | (Data.Custom.ChoiceLeft(:)==0 & ~Data.Custom.LeftA(:));
     GUIHandles.Axes.TrialRate.TrialRateA.XData = (Data.TrialStartTimestamp(ndxCho)-min(Data.TrialStartTimestamp))/60;
-    GUIHandles.Axes.TrialRate.TrialRateA.YData(Data.Custom.LeftA) = 1:numel(GUIHandles.Axes.TrialRate.TrialRateA.XData);
-    ndxCho = (Data.Custom.ChoiceLeft(:)==1 & ~Data.Custom.LeftA) | (Data.Custom.ChoiceLeft(:)==0 & Data.Custom.LeftA);
+    GUIHandles.Axes.TrialRate.TrialRateA.YData = 1:numel(GUIHandles.Axes.TrialRate.TrialRateA.XData);
+    ndxCho = (Data.Custom.ChoiceLeft(:)==1 & ~Data.Custom.LeftA(:)) | (Data.Custom.ChoiceLeft(:)==0 & Data.Custom.LeftA(:));
     GUIHandles.Axes.TrialRate.TrialRateB.XData = (Data.TrialStartTimestamp(ndxCho)-min(Data.TrialStartTimestamp))/60;
     GUIHandles.Axes.TrialRate.TrialRateB.YData = 1:numel(GUIHandles.Axes.TrialRate.TrialRateB.XData);
 end

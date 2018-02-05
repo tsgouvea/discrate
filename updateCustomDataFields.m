@@ -1,5 +1,6 @@
 function updateCustomDataFields
 global BpodSystem
+global TaskParameters
 
 statesThisTrial = BpodSystem.Data.RawData.OriginalStateNamesByNumber{end}(BpodSystem.Data.RawData.OriginalStateData{end});
 
