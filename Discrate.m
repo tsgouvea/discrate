@@ -27,7 +27,7 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUI.Ports_LMR = '123';
     TaskParameters.GUI.rewardAmount = 30;
     TaskParameters.GUI.rewardProb = .5;
-    TaskParameters.GUIPanels.General = {'MaxSessLen','Reverse','Ports_LMR','ITI','rewardProb','rewardAmount'};
+    TaskParameters.GUIPanels.General = {'MaxSessLen','Reverse','Ports_LMR','rewardProb','rewardAmount'};
     
     %%
     TaskParameters.GUI = orderfields(TaskParameters.GUI);
