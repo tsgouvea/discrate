@@ -21,11 +21,13 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUIPanels.Delays = {'PreA','PreB','PreRandom','PostA','PostB','PostRandom','LeftA'};    
     
     %% General
+    TaskParameters.GUI.MaxSessLen = 120; % In minutes
+    TaskParameters.GUI.Reverse = true; % At MaxSessLen/2
+    TaskParameters.GUIMeta.Reverse.Style = 'checkbox';
     TaskParameters.GUI.Ports_LMR = '123';
-    TaskParameters.GUI.ITI = 0; % (s)
     TaskParameters.GUI.rewardAmount = 30;
     TaskParameters.GUI.rewardProb = .5;
-    TaskParameters.GUIPanels.General = {'Ports_LMR','ITI','rewardProb','rewardAmount'};
+    TaskParameters.GUIPanels.General = {'MaxSessLen','Reverse','Ports_LMR','ITI','rewardProb','rewardAmount'};
     
     %%
     TaskParameters.GUI = orderfields(TaskParameters.GUI);
@@ -54,7 +56,14 @@ BpodSystem.Data.Custom.Rewarded = [];
 RunSession = true;
 % iTrial = 1;
 
-while RunSession
+TaskParameters.GUI.LeftA = rand>.5;
+tsSessStart = tic;
+
+while toc(tsSessStart) < TaskParameters.GUI.MaxSessLen
+    if TaskParameters.GUI.Reverse && toc(tsSessStart) > TaskParameters.GUI.MaxSessLen/2
+        TaskParameters.GUI.LeftA = ~TaskParameters.GUI.LeftA;
+        TaskParameters.GUI.Reverse = false;        
+    end
     TaskParameters = BpodParameterGUI('sync', TaskParameters);
     
     sma = stateMatrix();
