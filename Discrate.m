@@ -51,6 +51,7 @@ clear temp
 BpodNotebook('init');
 BpodSystem.Data.Custom.ChoiceLeft = [];
 BpodSystem.Data.Custom.Rewarded = [];
+BpodSystem.Data.Custom.LeftA = [];
 
 %% Main loop
 RunSession = true;

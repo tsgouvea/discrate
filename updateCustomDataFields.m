@@ -9,5 +9,5 @@ elseif any(strcmp('PreR',statesThisTrial))
     BpodSystem.Data.Custom.ChoiceLeft(end+1) = 0;
 end
 BpodSystem.Data.Custom.Rewarded(end+1) = any(strncmp('water_',statesThisTrial,6));
-
+BpodSystem.Data.Custom.LeftA(end+1) = TaskParameters.GUI.LeftA;
 end
