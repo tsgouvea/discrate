@@ -74,9 +74,9 @@ while RunSession
     updateCustomDataFields()
     
     BpodSystem.GUIHandles = SessionSummary(BpodSystem.Data, BpodSystem.GUIHandles);
-    if BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen
+    if BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen*60
         RunSession = false;
-    elseif TaskParameters.GUI.Reverse && BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen/2
+    elseif TaskParameters.GUI.Reverse && BpodSystem.Data.TrialStartTimestamp(end) - BpodSystem.Data.TrialStartTimestamp(1) > TaskParameters.GUI.MaxSessLen*60/2
         TaskParameters.GUI.LeftA = ~TaskParameters.GUI.LeftA;
         TaskParameters.GUI.Reverse = false;
     end
