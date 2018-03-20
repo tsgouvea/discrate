@@ -19,7 +19,6 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUI.LeftA = rand>.5;
     TaskParameters.GUIMeta.LeftA.Style = 'checkbox';
     TaskParameters.GUIPanels.Delays = {'PreA','PreB','PreRandom','PostA','PostB','PostRandom','LeftA'};
-    7
     %% Economic policy
     TaskParameters.GUI.MaxSessLen = 90; % In minutes
     TaskParameters.GUI.FracForced = 2/3; % fraction of forced choices
