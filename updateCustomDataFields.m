@@ -11,4 +11,6 @@ elseif any(strcmp('PreR',statesThisTrial))
 end
 BpodSystem.Data.Custom.Rewarded(end+1) = any(strncmp('water_',statesThisTrial,6));
 BpodSystem.Data.Custom.LeftA(end+1) = TaskParameters.GUI.LeftA;
+BpodSystem.Data.Custom.Forced(end+1) = any(strncmp('forc_',statesThisTrial,5));
+BpodSystem.Data.Custom.Free(end+1) = any(strncmp('free_',statesThisTrial,5));
 end

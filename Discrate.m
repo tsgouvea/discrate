@@ -18,16 +18,23 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUIMeta.PostRandom.Style = 'checkbox';
     TaskParameters.GUI.LeftA = rand>.5;
     TaskParameters.GUIMeta.LeftA.Style = 'checkbox';
-    TaskParameters.GUIPanels.Delays = {'PreA','PreB','PreRandom','PostA','PostB','PostRandom','LeftA'};    
+    TaskParameters.GUIPanels.Delays = {'PreA','PreB','PreRandom','PostA','PostB','PostRandom','LeftA'};
+    7
+    %% Economic policy
+    TaskParameters.GUI.MaxSessLen = 90; % In minutes
+    TaskParameters.GUI.FracForced = 2/3; % fraction of forced choices
+    TaskParameters.GUI.Reverse = false; % At MaxSessLen/2
+    TaskParameters.GUIMeta.Reverse.Style = 'checkbox';
+    TaskParameters.GUI.TrgtCumRwd = 15; % (mL), target cumulative reward, assuming{max_trial_rate,random_policy}
+    TaskParameters.GUI.rewardProb = 1;
+    TaskParameters.GUI.rewardAmount = TaskParameters.GUI.TrgtCumRwd*1000 / (TaskParameters.GUI.MaxSessLen*60/...
+        sum([TaskParameters.GUI.PreA,TaskParameters.GUI.PreB,TaskParameters.GUI.PostA,TaskParameters.GUI.PostB])/2);
+    TaskParameters.GUIPanels.Economics = {'MaxSessLen','TrgtCumRwd','FracForced','Reverse','rewardProb','rewardAmount'};
+    
     
     %% General
-    TaskParameters.GUI.MaxSessLen = 120; % In minutes
-    TaskParameters.GUI.Reverse = true; % At MaxSessLen/2
-    TaskParameters.GUIMeta.Reverse.Style = 'checkbox';
     TaskParameters.GUI.Ports_LMR = '123';
-    TaskParameters.GUI.rewardAmount = 30;
-    TaskParameters.GUI.rewardProb = .5;
-    TaskParameters.GUIPanels.General = {'MaxSessLen','Reverse','Ports_LMR','rewardProb','rewardAmount'};
+    TaskParameters.GUIPanels.General = {'Ports_LMR'};
     
     %%
     TaskParameters.GUI = orderfields(TaskParameters.GUI);
@@ -52,11 +59,15 @@ BpodNotebook('init');
 BpodSystem.Data.Custom.ChoiceLeft = [];
 BpodSystem.Data.Custom.Rewarded = [];
 BpodSystem.Data.Custom.LeftA = [];
+BpodSystem.Data.Custom.Forced = [];
+BpodSystem.Data.Custom.Free = [];
 
 %% Main loop
 RunSession = true;
 
 while RunSession
+    TaskParameters.GUI.rewardAmount = TaskParameters.GUI.TrgtCumRwd*1000 / (TaskParameters.GUI.MaxSessLen*60/...
+        sum([TaskParameters.GUI.PreA,TaskParameters.GUI.PreB,TaskParameters.GUI.PostA,TaskParameters.GUI.PostB])/2);
     TaskParameters = BpodParameterGUI('sync', TaskParameters);
     
     sma = stateMatrix();
