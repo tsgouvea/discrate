@@ -28,6 +28,7 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUI.rewardProb = 1;
     TaskParameters.GUI.rewardAmount = TaskParameters.GUI.TrgtCumRwd*1000 / (TaskParameters.GUI.MaxSessLen*60/...
         sum([TaskParameters.GUI.PreA,TaskParameters.GUI.PreB,TaskParameters.GUI.PostA,TaskParameters.GUI.PostB])/2);
+    TaskParameters.GUIMeta.rewardAmount.Style = 'text';
     TaskParameters.GUIPanels.Economics = {'MaxSessLen','TrgtCumRwd','FracForced','Reverse','rewardProb','rewardAmount'};
     
     
